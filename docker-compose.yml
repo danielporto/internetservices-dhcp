@@ -1,0 +1,19 @@
+version: '3'
+services:
+  dhcpserver: 
+   build: .
+   ports:
+     - "67:67/udp"
+     - "68:68/udp"
+   networks:
+     - pub_lan
+   restart: always
+
+networks:
+  pub_lan:
+     driver: macvlan
+     driver_opts:
+       parent: br0
+     ipam:
+       config:
+         - subnet: 10.100.0.0/24
